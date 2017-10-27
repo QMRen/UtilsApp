@@ -6,5 +6,5 @@ import android.app.Application;
  * Created by admin on 2017/10/23.
  */
 
-public class MyApplication extends Application {
+public class UtilsApplication extends Application {
 }
