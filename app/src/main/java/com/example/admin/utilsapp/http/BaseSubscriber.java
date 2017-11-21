@@ -24,16 +24,22 @@ public class BaseSubscriber<T> implements Subscriber<T> {
 
     @Override
     public void onNext(T t) {
-
+        if (mCallback != null) {
+            mCallback.requestSuccess(t);
+        }
     }
 
     @Override
     public void onError(Throwable t) {
-
+        if (mCallback != null) {
+            mCallback.requestError(t);
+        }
     }
 
     @Override
     public void onComplete() {
-
+        if (mCallback != null) {
+            mCallback.requestComplete();
+        }
     }
 }

@@ -13,8 +13,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.admin.utilsapp.R;
 import com.example.admin.utilsapp.base.BaseFragment;
-import com.example.admin.utilsapp.bean.Girls;
-import com.example.admin.utilsapp.http.BaseEntity;
+import com.example.admin.utilsapp.bean.BannerBean;
+import com.example.admin.utilsapp.http.BaseResponse;
 import com.example.admin.utilsapp.http.Callback;
 import com.example.admin.utilsapp.service.GirlService;
 
@@ -33,25 +33,30 @@ public class DiscoverFragment extends BaseFragment {
     @BindView(R.id.recycler_discover)
     RecyclerView mRecyclerView;
     LinearLayoutManager mLinearLayoutManager;
-    List<Girls> mResults1;
+    List<BannerBean> mResults1;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_discover, null);
         ButterKnife.bind(this, view);
-        GirlService girlService = new GirlService(DiscoverFragment.this.getContext());
-        girlService.getVideoUrl(new Callback<Response<BaseEntity<List<Girls>>>>() {
+        GirlService girlService = new GirlService(getContext());
+        girlService.getBanner(new Callback<Response<BaseResponse<List<BannerBean>>>>() {
             @Override
-            public void requestError(String msg) {
-                Toast.makeText(DiscoverFragment.this.getContext(), "----------" + msg, Toast.LENGTH_LONG).show();
+            public void requestError(Throwable msg) {
+
             }
 
             @Override
-            public void requestSuccess(Response<BaseEntity<List<Girls>>> data) {
-                mResults1 = data.body().getResults();
+            public void requestSuccess(Response<BaseResponse<List<BannerBean>>> data) {
+
+                mResults1 = data.body().getData();
             }
 
+            @Override
+            public void requestComplete() {
+                Toast.makeText(getContext(),"------------------------完成了",Toast.LENGTH_LONG).show();
+            }
         });
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -61,9 +66,9 @@ public class DiscoverFragment extends BaseFragment {
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-        List<Girls> data;
+        List<BannerBean> data;
 
-        public MyAdapter(List<Girls> list) {
+        public MyAdapter(List<BannerBean> list) {
             data = list;
         }
 
@@ -76,7 +81,7 @@ public class DiscoverFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
-            Glide.with(DiscoverFragment.this.getContext()).load(data.get(position).getUrl()).into(holder.mImageView);
+            Glide.with(DiscoverFragment.this.getContext()).load(data.get(position).getBannerUrl()).into(holder.mImageView);
         }
 
         @Override

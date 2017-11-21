@@ -4,9 +4,12 @@ package com.example.admin.utilsapp.http;
  * Created by admin on 2017/11/15.
  */
 
-public interface Callback<T> {
+public abstract class Callback<T> {
 
-    void requestError(String msg);
+    public abstract void requestError(Throwable msg);
 
-    void requestSuccess(T data);
+    public abstract void requestSuccess(T data);
+
+    public abstract void requestComplete();
+
 }

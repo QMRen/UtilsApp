@@ -1,8 +1,10 @@
 package com.example.admin.utilsapp.api;
 
 
+import com.example.admin.utilsapp.bean.BannerBean;
 import com.example.admin.utilsapp.bean.Girls;
 import com.example.admin.utilsapp.http.BaseEntity;
+import com.example.admin.utilsapp.http.BaseResponse;
 
 import java.util.List;
 
@@ -18,4 +20,7 @@ public interface GirlsApi {
 
     @GET("api/data/福利/10/1")
     Flowable<Response<BaseEntity<List<Girls>>>> getVideoUrl();
+
+    @GET("product/getBanner")
+    Flowable<Response<BaseResponse<List<BannerBean>>>> getBanner();
 }

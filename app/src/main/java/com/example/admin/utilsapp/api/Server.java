@@ -20,7 +20,7 @@ public class Server {
     private static final String TrjUrl_Maintain = "http://uatweb.lcshidai.com/";
     //生产环境
     private static final String ApiUrl_Produce = "http://gank.io/";
-    private static final String ApiWap_Produce = "http://m.changxiangstyle.com/";
+    private static final String ApiWap_Produce = "http://web.changxiangstyle.com/";
     private static final String TrjUrl_Produce = "https://www.lcshidai.com/";
 
     private enum ServerType{
